@@ -1,0 +1,50 @@
+name: "Supabase RLS Audit"
+description: "Read-only audit of deployed Supabase URLs and SQL migrations for missing RLS policies, exposed PostgREST tables, and leaked JS bundle secrets."
+branding:
+  icon: "shield"
+  color: "green"
+inputs:
+  url:
+    description: "Deployed app URL to scan (e.g. https://your-app.vercel.app)"
+    required: false
+    default: ""
+  dir:
+    description: "Local directory containing Supabase SQL migrations and/or frontend code (e.g. . or ./supabase/migrations)"
+    required: false
+    default: ""
+  fail-on:
+    description: "Minimum severity that causes a non-zero exit code: critical, high, medium, low, none"
+    required: false
+    default: "high"
+  max-tables:
+    description: "Maximum number of PostgREST tables to probe read-only"
+    required: false
+    default: "15"
+  json-output:
+    description: "Optional file path to write structured JSON report"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: Run Supabase RLS Audit
+      shell: bash
+      env:
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_DIR: ${{ inputs.dir }}
+        INPUT_FAIL_ON: ${{ inputs.fail-on }}
+        INPUT_MAX_TABLES: ${{ inputs.max-tables }}
+        INPUT_JSON_OUTPUT: ${{ inputs.json-output }}
+      run: |
+        ARGS=(--fail-on "$INPUT_FAIL_ON" --max-tables "$INPUT_MAX_TABLES")
+        if [ -n "$INPUT_URL" ]; then
+          ARGS+=(--url "$INPUT_URL")
+        fi
+        if [ -n "$INPUT_DIR" ]; then
+          ARGS+=(--dir "$INPUT_DIR")
+        fi
+        if [ -n "$INPUT_JSON_OUTPUT" ]; then
+          node "${{ github.action_path }}/bin/cli.mjs" "${ARGS[@]}" --json > "$INPUT_JSON_OUTPUT"
+        else
+          node "${{ github.action_path }}/bin/cli.mjs" "${ARGS[@]}"
+        fi

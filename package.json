@@ -1,0 +1,36 @@
+{
+  "name": "supabase-rls-audit-cli",
+  "version": "1.0.0",
+  "description": "Zero-dependency, read-only CLI and GitHub Action to audit deployed Supabase apps and SQL migrations for missing RLS policies, exposed PostgREST tables, and leaked JS bundle secrets.",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://breachsweep.com/supabase-rls-scanner",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VirilePeak/supabase-rls-audit-cli.git"
+  },
+  "bin": {
+    "supabase-rls-audit": "./bin/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": [
+    "supabase",
+    "rls",
+    "row-level-security",
+    "postgrest",
+    "security",
+    "audit",
+    "scanner",
+    "github-action",
+    "nextjs",
+    "lovable"
+  ]
+}
