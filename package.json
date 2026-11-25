@@ -1,6 +1,6 @@
 {
   "name": "supabase-rls-audit-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Zero-dependency, read-only CLI and GitHub Action to audit deployed Supabase apps and SQL migrations for missing RLS policies, exposed PostgREST tables, and leaked JS bundle secrets.",
   "type": "module",
   "license": "MIT",
@@ -10,6 +10,7 @@
     "url": "https://github.com/VirilePeak/supabase-rls-audit-cli.git"
   },
   "bin": {
+    "supabase-rls-audit-cli": "./bin/cli.mjs",
     "supabase-rls-audit": "./bin/cli.mjs"
   },
   "exports": {

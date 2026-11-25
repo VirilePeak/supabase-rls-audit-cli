@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 import { auditUrl, auditLocalDir, shouldFail } from "../src/index.mjs";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.1";
 
 function printHelp() {
-  console.log(`supabase-rls-audit v${VERSION}
+  console.log(`supabase-rls-audit-cli v${VERSION}
 Zero-dependency, read-only Supabase RLS & JS bundle secret auditor.
 
 Usage:
-  supabase-rls-audit <url> [options]
-  supabase-rls-audit --dir ./supabase/migrations [options]
-  supabase-rls-audit --url https://app.example.com --dir . [options]
+  npx supabase-rls-audit-cli <url> [options]
+  npx supabase-rls-audit-cli --dir ./supabase/migrations [options]
+  npx supabase-rls-audit-cli --url https://app.example.com --dir . [options]
 
 Options:
   --url <url>           Deployed app URL to audit (read-only)
@@ -22,8 +22,9 @@ Options:
   -v, --version         Print version
   -h, --help            Show this help
 
-Browser scanner (no install): https://breachsweep.com/supabase-rls-scanner
-Deep-dive guide:              https://breachsweep.com/blog/supabase-rls-service-role-bypass`);
+Browser scanners (no install): https://breachsweep.com/supabase-rls-scanner
+                               https://breachsweep.com/nextjs-security-scanner
+Deep-dive guide:               https://breachsweep.com/blog/supabase-rls-service-role-bypass`);
 }
 
 function parseArgs(argv) {
